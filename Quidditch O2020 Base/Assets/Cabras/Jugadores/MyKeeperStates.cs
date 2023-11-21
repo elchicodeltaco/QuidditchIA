@@ -25,7 +25,7 @@ namespace MyKeeperStates
         }
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("Llendo a posicion");
+            //Debug.Log("Llendo a posicion");
         }
         public override void Act(GameObject objeto)
         {
@@ -44,7 +44,7 @@ namespace MyKeeperStates
         }
         public override void OnExit(GameObject objeto)
         {
-            Debug.Log("Llegue a pos");
+            //Debug.Log("Llegue a pos");
         }
 
         IEnumerator IdleFunction()
@@ -66,7 +66,7 @@ namespace MyKeeperStates
         }
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("entrendo idle");
+            //Debug.Log("entrendo idle");
         }
         public override void Act(GameObject objeto)
         {
@@ -85,7 +85,7 @@ namespace MyKeeperStates
         }
         public override void OnExit(GameObject objeto)
         {
-            Debug.Log("exit IDLE");
+           // Debug.Log("exit IDLE");
             //player.steering.arrive = false;
         }
 
@@ -109,7 +109,7 @@ namespace MyKeeperStates
         }
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("Anticipar");
+            //Debug.Log("Anticipar");
 
             
         }
@@ -145,7 +145,7 @@ namespace MyKeeperStates
         }
         public override void OnExit(GameObject objeto)
         {
-            Debug.Log("exit Anticipar");
+            //Debug.Log("exit Anticipar");
             //player.steering.interpose = false;
         }
 
@@ -164,7 +164,7 @@ namespace MyKeeperStates
         }
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("perseguir");
+            //Debug.Log("perseguir");
         }
         public override void Act(GameObject objeto)
         {
@@ -191,7 +191,7 @@ namespace MyKeeperStates
         }
         public override void OnExit(GameObject objeto)
         {
-            Debug.Log("exit Perseguir");
+            //Debug.Log("exit Perseguir");
             //player.steering.pursuit = false;
         }
 
@@ -210,7 +210,7 @@ namespace MyKeeperStates
         }
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("cazar");
+            //Debug.Log("cazar");
         }
         public override void Act(GameObject objeto)
         {
@@ -243,7 +243,7 @@ namespace MyKeeperStates
         }
         public override void OnExit(GameObject objeto)
         {
-            Debug.Log("exit Cazar");
+            //Debug.Log("exit Cazar");
             //player.steering.seek = false;
         }
 

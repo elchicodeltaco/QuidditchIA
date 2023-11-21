@@ -632,7 +632,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (6)
+      value: Buscador
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
@@ -940,7 +940,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (4)
+      value: Golpeador Uno
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
@@ -962,6 +962,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1105416986}
     m_Modifications:
+    - target: {fileID: 8717982502456613532, guid: 30c86c06b4bcb3743949af3de3045cf1,
+        type: 3}
+      propertyPath: m_Name
+      value: Primer Cazador
+      objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218834, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1020,9 +1025,12 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian
+      value: Primer Cazador
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8717982502456613504, guid: 30c86c06b4bcb3743949af3de3045cf1, type: 3}
+    - {fileID: 8717982502456613510, guid: 30c86c06b4bcb3743949af3de3045cf1, type: 3}
+    - {fileID: 8717982502456613507, guid: 30c86c06b4bcb3743949af3de3045cf1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 30c86c06b4bcb3743949af3de3045cf1, type: 3}
 --- !u!4 &694165491 stripped
 Transform:
@@ -1111,6 +1119,133 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1788816412}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &859241308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8717982502456613532, guid: 30c86c06b4bcb3743949af3de3045cf1,
+    type: 3}
+  m_PrefabInstance: {fileID: 694165490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &859241310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859241308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83880c7a90dc6fe47a6387ec013508d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 0
+  maxForce: 0
+  Target: {fileID: 0}
+  seek: 0
+  seekWeight: 0
+  flee: 0
+  fleeWeight: 0
+  arrive: 0
+  arriveWeight: 0
+  pursuit: 0
+  pursuitWeight: 0
+  obstacleAvoidance: 0
+  obstacelAvoidanceWeight: 0
+  obstacleDetectorMinLength: 0
+  Obstacles: []
+  wander: 0
+  wander2: 0
+  wanderWeight: 0
+  wanderJitter: 0
+  wanderRadius: 0
+  wanderDistance: 0
+  wallAvoidance: 0
+  wallAvoidanceWeight: 1
+  wallAvoidanceSensorLenght: 0
+  interpose: 0
+  interposeWeight: 1
+  agent1: {fileID: 0}
+  agent2: {fileID: 0}
+  cohesion: 0
+  teamCohesion: 0
+  cohesionWeight: 0
+  separation: 0
+  teamSeparation: 0
+  separationWeight: 0
+  alignment: 0
+  teamAlignment: 0
+  alignmentWeight: 0
+  myCombiningMethod: 0
+  deceleration: 0
+  NearPlayers: []
+  NearTeammates: []
+  NearRivals: []
+  nearPlayersSensorRadius: 0
+  NearPlayersSensor: {fileID: 0}
+--- !u!114 &859241311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859241308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04a400ad9910e54d8fe612961479548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaPelota: 0
+--- !u!114 &859241312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859241308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47c91db8dedcd54192fd21911c97f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steering: {fileID: 859241310}
+  hitted: 0
+  myTeam: {fileID: 0}
+  resistence: 0.5
+  myNumberInTeam: 0
+  myStartingPosition: {fileID: 0}
+  playerPosition: 2
+  misBolas: {fileID: 859241311}
+  miTeam: {fileID: 1105416987}
+  distanceToShoot: 10
+  ThrowStrenght: 15
+--- !u!114 &859241314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859241308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec513d9ec758ab43a0abacdcd8e3282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  Target: {fileID: 0}
+  inRange: 0
+  terminado: 0
+  duracionAccion: 0
+--- !u!114 &859241315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859241308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a46e979d209b15b4695daabe4ad3498f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &869756318 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4081062752830658, guid: 2aa4f3f2d44489549a08ebad4cf3e9de,
@@ -1195,6 +1330,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1105416986}
   - component: {fileID: 1105416987}
+  - component: {fileID: 1105416988}
   m_Layer: 0
   m_Name: Cabras
   m_TagString: Untagged
@@ -1251,6 +1387,20 @@ MonoBehaviour:
   posicionesIniciales: []
   posicionSeeker: {fileID: 0}
   estadoEquipo: 0
+--- !u!114 &1105416988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105416985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d5dd60ee223ed4f8eca07614b1d040, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TodosLosCazadores: []
+  yaSeReviso: 0
 --- !u!1001 &1139354827
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1400,7 +1550,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (5)
+      value: Golpeador Dos
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
@@ -1582,7 +1732,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (2)
+      value: Tercer Cazador
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
@@ -1916,7 +2066,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (3)
+      value: Guardian
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
@@ -2233,7 +2383,7 @@ PrefabInstance:
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}
       propertyPath: m_Name
-      value: CabrasGuardian (1)
+      value: Segundo Cazador
       objectReference: {fileID: 0}
     - target: {fileID: 8717982502802218861, guid: 30c86c06b4bcb3743949af3de3045cf1,
         type: 3}

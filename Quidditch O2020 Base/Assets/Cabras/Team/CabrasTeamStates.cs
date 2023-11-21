@@ -24,7 +24,7 @@ namespace CabrasTeamState
 
         public override void OnEnter(GameObject objeto)
         {
-            Debug.Log("preparando Equipo");
+            //Debug.Log("preparando Equipo");
         }
         public override void Act(GameObject objeto)
         {
