@@ -36,22 +36,6 @@ public class PecesPlayer : MonoBehaviour
         miEquipo = GetComponentInParent<CabrasTeam>();
 
         quaffle = GameManager.instancia.Quaffle.transform;
-        //// Crear los estados en que puede estar 
-        //GlobalMessageState global = new GlobalMessageState(this);
-        //Waiting wait = new Waiting(this);
-        //ReceiveHit hit = new ReceiveHit(this);
-
-        //// Estado global
-        //fsm.SetGlobalState(global);
-        ////Hay que agregarlos a la FSM
-        //fsm.AddState(StateID.Waiting, wait);
-        //fsm.AddState(StateID.ReceiveHit, hit);
-
-        //// Indicar cual es el estado inicial
-        //fsm.ChangeState(StateID.Waiting);
-
-        // Activo la fsm
-        //fsm.Activate();
     }
 
     // Update is called once per frame
@@ -61,6 +45,20 @@ public class PecesPlayer : MonoBehaviour
         {
             fsm.UpdateFSM();
             //print("andando"+ gameObject.ToString());
+        }
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        // Si me pega un rival o una pelota
+        if (miEquipo.isRival(collision.gameObject) || collision.gameObject.tag.Equals("Ball Bludger"))
+        {
+            // Me pegaron con suficiente fuerza
+            if (collision.relativeVelocity.magnitude > 2) //calibrar
+            {
+                print("PEGO" + name.ToString());
+                hitted = true;
+            }
         }
     }
 }

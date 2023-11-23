@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Snitch.cs" />
     <Compile Include="Assets\Scripts\FSM\Balls\SnitchStates.cs" />
     <Compile Include="Assets\Cabras\Fsm\CabrasFSM.cs" />
+    <Compile Include="Assets\Cabras\Fsm\PecesPlayerEstados.cs" />
     <Compile Include="Assets\Teams\Los chidos\Scripts\SeekerChido.cs" />
     <Compile Include="Assets\Cabras\CazadorFSMCabras\elCazadorCabras.cs" />
     <Compile Include="Assets\Cabras\ScriptsCabras\AgentesCabras\CazadorCabras\BuscarPelCazCabras.cs" />
@@ -121,7 +122,10 @@
     <Compile Include="Assets\Cabras\ScriptsCabras\SteeringCombinedCabras.cs" />
     <Compile Include="Assets\Scripts\Cameras\BludgerCamera.cs" />
     <Compile Include="Assets\Scripts\FSM\Balls\BludgerStates.cs" />
-    <Compile Include="Assets\Cabras\Fsm\PecesPlayerEstados.cs" />
+    <Compile Include="Assets\Cabras\ScriptsCabras\BeaterGlittersStates.cs" />
+    <Compile Include="Assets\Cabras\ScriptsCabras\CabrasBeater.cs" />
+    <Compile Include="Assets\Cabras\Sonido\Sonidos.cs" />
+    <Compile Include="Assets\Cabras\Sonido\AudioCabras.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

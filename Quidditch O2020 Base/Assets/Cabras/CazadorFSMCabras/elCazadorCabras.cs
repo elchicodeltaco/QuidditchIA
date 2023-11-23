@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CazadorAcciones;
+using PecesPlayerEstados;
 
 public class elCazadorCabras : PecesPlayer
 {
@@ -24,21 +25,30 @@ public class elCazadorCabras : PecesPlayer
         //Agregar edos del agente
         //Buscar pelota, buscar portería (acción: lanzar la pelota)
 
-        Prepararse preparar = new Prepararse(this);
         Esperar esperar = new Esperar(this);
         PerseguirPelota perseguirPelota = new PerseguirPelota(this);
         BuscarAro buscarAro = new BuscarAro(this);
         Acompaniar acompaniar = new Acompaniar(this);
         PerseguirRival rival = new PerseguirRival(this);
+        //estos son los ultimos en declararse pero los primeros en usarse
+        EstadoGlobal global = new EstadoGlobal(this);
+        Prepararse preparar = new Prepararse(this, esperar);
+        RecibirGolpe golpe = new RecibirGolpe(this);
+        JuegoAcabado acabo = new JuegoAcabado(this);
 
-        fsm.AddState(CazadorStateID.Prepararse, preparar);
+        fsm.SetGlobalState(global);
+
+        fsm.AddState(StateID.EstadoGlobal, global);
+        fsm.AddState(StateID.Prepararse, preparar);
+        fsm.AddState(StateID.RecibirGolpe, golpe);
+        fsm.AddState(StateID.JuegoAcabado, acabo);
         fsm.AddState(CazadorStateID.Esperar, esperar);
         fsm.AddState(CazadorStateID.PerseguirPelota, perseguirPelota);
         fsm.AddState(CazadorStateID.BuscarAro, buscarAro);
         fsm.AddState(CazadorStateID.Acompaniar, acompaniar);
         fsm.AddState(CazadorStateID.PersiguirRival, rival);
 
-        fsm.ChangeState(CazadorStateID.Prepararse);
+        fsm.ChangeState(StateID.Prepararse);
         fsm.Activate();
     }
 

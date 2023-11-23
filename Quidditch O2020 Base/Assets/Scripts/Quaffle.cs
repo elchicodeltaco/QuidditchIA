@@ -6,7 +6,7 @@ public class Quaffle : Ball
 {
     public float freeTime;
     private float totalFreeTime = 1f;
-
+    public GameObject pertenec;
     public bool Control(Transform player)
     {
         if (!freeMe)
@@ -50,6 +50,7 @@ public class Quaffle : Ball
 	protected override void Update () 
     {
         //base.Update();
+        pertenec = Owner;
 	}
 
     private void FixedUpdate()

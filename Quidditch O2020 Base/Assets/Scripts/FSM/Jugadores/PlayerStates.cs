@@ -37,8 +37,6 @@ namespace PlayerStates
         }
         public override void Reason(GameObject objeto)
         {
-            
-
             // Si el jugador es golpeado
             if (player.hitted && !isCurrentState(StateID.ReceiveHit))
             {

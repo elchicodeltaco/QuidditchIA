@@ -6,17 +6,63 @@ namespace PecesPlayerEstados
 {
     public enum StateID // Aqui agreguen las claves de cada estado que quieran
     {
-        Prepare,
-        ReceiveHit
+        EstadoGlobal,
+        Prepararse,
+        RecibirGolpe,
+        JuegoAcabado
+    }
+
+    public class EstadoGlobal : State
+    {
+        private PecesPlayer player;
+
+        // Variables del estado
+
+        public EstadoGlobal(PecesPlayer _player)
+        {
+            player = _player;
+        }
+        public override void OnEnter(GameObject objeto)
+        {
+        }
+        public override void Act(GameObject objeto)
+        {
+        }
+        public override void Reason(GameObject objeto)
+        {
+            // Si el jugador es golpeado
+            if (player.hitted && !isCurrentState(StateID.RecibirGolpe))
+            {
+                InitBlipState(StateID.RecibirGolpe);
+            }
+
+            // Alguien acaba de anotar
+            int scoringTeam = GameManager.instancia.IsRecovering();
+            if (scoringTeam != 0)
+            {
+
+            }
+
+            // Si el juego termina
+            if (GameManager.instancia.isGameOver())
+            {
+                ChangeState(StateID.JuegoAcabado);
+            }
+        }
+        public override void OnExit(GameObject objeto)
+        {
+        }
     }
 
     public class Prepararse : State
     {
         PecesPlayer player;
+        State sigEstado;
 
-        public Prepararse(PecesPlayer player)
+        public Prepararse(PecesPlayer player, State sigEstado)
         {
             this.player = player;
+            this.sigEstado = sigEstado;
         }
         public override void OnEnter(GameObject obj)
         {
@@ -32,7 +78,7 @@ namespace PecesPlayerEstados
         {
             if (GameManager.instancia.isGameStarted())
             {
-                //hangeState();
+                ChangeState(sigEstado);
             }
         }
         public override void OnExit(GameObject obj)
@@ -42,7 +88,7 @@ namespace PecesPlayerEstados
 
     //=============================================================
     //=================================================== ReceiveHit
-    public class ReceiveHit : State
+    public class RecibirGolpe : State
     {
         private PecesPlayer player;
 
@@ -50,7 +96,7 @@ namespace PecesPlayerEstados
         bool stunEnds;
         bool loseControl;   // El jugador tenia la pelota, la puede perder
 
-        public ReceiveHit(PecesPlayer _player)
+        public RecibirGolpe(PecesPlayer _player)
         {
             player = _player;
         }
@@ -58,6 +104,7 @@ namespace PecesPlayerEstados
         {
             // En este estado el jugador recibe un golpe
 
+            
             loseControl = false;
             stunEnds = false;
             fsm.myMono.StartCoroutine(StunFunction());
@@ -80,6 +127,7 @@ namespace PecesPlayerEstados
 
         IEnumerator StunFunction()
         {
+            
             // NO siempre que sea golpeado queda incapacitado o pierde el control de la pelota
             float lose = Random.value;
             if (lose > player.resistencia)
@@ -90,6 +138,7 @@ namespace PecesPlayerEstados
                 {
                     if (owner.Equals(player.gameObject))
                     {
+                        Debug.Log("stun function");
                         // Pierde control de la pelota
                         GameManager.instancia.FreeQuaffle();
                     }
@@ -101,6 +150,32 @@ namespace PecesPlayerEstados
             }
 
             stunEnds = true;
+        }
+    }
+
+    public class JuegoAcabado : State
+    {
+        private PecesPlayer player;
+
+        // Variables del estado
+
+        public JuegoAcabado(PecesPlayer _player)
+        {
+            player = _player;
+        }
+        public override void OnEnter(GameObject objeto)
+        {
+        }
+        public override void Act(GameObject objeto)
+        {
+            objeto.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        public override void Reason(GameObject objeto)
+        {
+
+        }
+        public override void OnExit(GameObject objeto)
+        {
         }
     }
 }

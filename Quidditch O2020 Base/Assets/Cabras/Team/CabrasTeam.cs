@@ -5,7 +5,7 @@ using CabrasTeamState;
 
 public class CabrasTeam : MonoBehaviour
 {
-    public string cabrasName = "CabrasQC";
+    public string cabrasName = "Aletas Magicas";
     public Color cabrasColor;
     public int cabrasTeamNumber;
     public int getTeamNumber
@@ -18,6 +18,7 @@ public class CabrasTeam : MonoBehaviour
     public List<Transform> rivales;
 
     public List<Transform> arosEnemigos;
+    public List<Transform> arosEquipo;
     public List<Transform> posicionesIniciales;
     public Transform posicionSeeker;
 
@@ -38,12 +39,14 @@ public class CabrasTeam : MonoBehaviour
             GameManager.instancia.team1Players = cabras;
             // Puedo saber hacia donde tiro
             arosEnemigos = GameManager.instancia.team2Goals;
+            arosEquipo = GameManager.instancia.team1Goals;
         }
         else if (cabrasTeamNumber == 2)
         {
             GameManager.instancia.team2Players = cabras;
 
             arosEnemigos = GameManager.instancia.team1Goals;
+            arosEquipo = GameManager.instancia.team2Goals;
         }
 
         GameManager.instancia.SetTeamColor(cabrasTeamNumber, cabrasColor);
@@ -73,7 +76,7 @@ public class CabrasTeam : MonoBehaviour
             estadoEquipo = TeamState.BolaLibre;
             return;
         }
-        if (esCompa(quaffleBall.GetComponent<Ball>().CurrentBallOwner()))
+        if (isCompa(quaffleBall.GetComponent<Ball>().CurrentBallOwner()))
         {
             estadoEquipo = TeamState.Atacando;
         }
@@ -85,21 +88,23 @@ public class CabrasTeam : MonoBehaviour
 
     }
 
-    public bool esCompa(GameObject player)
+    public bool isCompa(GameObject player)
     {
         return cabras.Contains(player.transform);
     }
 
     public bool isRival(GameObject player)
     {
+        if(player!=null)
         return rivales.Contains(player.transform);
+        return false;
     }
 
     void FillLateData()
     {
         if (getTeamNumber == 1)
         {
-            print("equipo num 1");
+            //print("equipo num 1");
             // Mis rivales
             rivales = GameManager.instancia.team2Players;
             // Mis posiciones iniciales
@@ -108,7 +113,7 @@ public class CabrasTeam : MonoBehaviour
         }
         else
         {
-            print("equipo num 2");
+            //print("equipo num 2");
             rivales = GameManager.instancia.team1Players;
             posicionesIniciales = GameManager.instancia.Team2StartPositions;
             posicionSeeker = GameManager.instancia.Team2SeekerStartPosition;

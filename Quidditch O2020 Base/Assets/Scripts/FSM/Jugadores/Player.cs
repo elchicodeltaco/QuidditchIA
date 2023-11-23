@@ -72,14 +72,15 @@ public class Player : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        //// Si me pega un rival o una pelota
-        //if(myTeam.isRival(collision.gameObject) || collision.gameObject.tag.Equals("Ball Bludger"))
-        //{
-        //    // Me pegaron con suficiente fuerza
-        //    if (collision.relativeVelocity.magnitude > 2) //calibrar
-        //    {
-        //        hitted = true;
-        //    }
-        //}
+        // Si me pega un rival o una pelota
+        if (myTeam.isRival(collision.gameObject) || collision.gameObject.tag.Equals("Ball Bludger"))
+        {
+            // Me pegaron con suficiente fuerza
+            if (collision.relativeVelocity.magnitude > 2) //calibrar
+            {
+                
+                hitted = true;
+            }
+        }
     }
 }

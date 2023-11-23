@@ -181,7 +181,7 @@ public class CabrasSteeringBlender : MonoBehaviour
         Vector3 PredictionB = targetB.position * timeToMidPoint;
         //gracias a estos calculos podemos predecir el punto medio de la prediccion recien hecha
         //midPoint = (PredictionA + PredictionB) / 2;
-        midPoint.z += 35;
+        //midPoint.z += 35;
         point = midPoint;
         //return GetComponent<Seek>().SeekMethod(midPoint, speed);
         //Arrive(midPoint, decelerationVel.fast, weigth);//y hacia ahi nos dirigimos

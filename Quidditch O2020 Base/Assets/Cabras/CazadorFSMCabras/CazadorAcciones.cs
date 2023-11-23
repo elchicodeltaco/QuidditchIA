@@ -7,46 +7,11 @@ namespace CazadorAcciones
 {
     public enum CazadorStateID
     {
-        Prepararse,
-        Esperar,
+        Esperar = 4,
         PerseguirPelota,
         BuscarAro,
         Acompaniar,
         PersiguirRival
-    }
-    public class Prepararse : State
-    {
-        PecesPlayer player;
-        elCazadorCabras cazador;
-
-        public Prepararse(elCazadorCabras cazador)
-        {
-            this.cazador = cazador;
-            this.player = cazador;
-        }
-        public override void OnEnter(GameObject obj)
-        {
-            cazador.estadoActual = "prepararse";
-            Debug.Log("Posicion inicial cazador");
-        }
-
-        public override void Act(GameObject obj)
-        {
-            if (player.posicionInicial != null)
-            player.steering.Arrive(player.posicionInicial.position, 
-                CabrasSteeringBlender.decelerationVel.fast, 1);
-        }
-        public override void Reason(GameObject obj)
-        {
-            if (GameManager.instancia.isGameStarted())
-            {
-                ChangeState(CazadorStateID.PerseguirPelota);
-            }
-        }
-        public override void OnExit(GameObject obj)
-        {
-            Debug.Log("ya empezo el juego cazador");
-        }
     }
     public class Esperar : State
     {
@@ -60,7 +25,7 @@ namespace CazadorAcciones
         }
         public override void OnEnter(GameObject obj)
         {
-            Debug.Log("Esperando caz");
+            //Debug.Log("Esperando caz");
             cazador.estadoActual = "esperar";
         }
 
@@ -77,7 +42,7 @@ namespace CazadorAcciones
         }
         public override void OnExit(GameObject obj)
         {
-            Debug.Log("exit esperandoCaz");
+            //Debug.Log("exit esperandoCaz");
         }
     }
     public class PerseguirPelota : State
@@ -93,7 +58,7 @@ namespace CazadorAcciones
         public override void OnEnter(GameObject obj)
         {
             cazador.estadoActual = "perseguirPelota";
-            Debug.Log("Perseguir Pelota");
+            //Debug.Log("Perseguir Pelota");
             quaffle = GameManager.instancia.Quaffle.transform;
         }
 
@@ -128,13 +93,13 @@ namespace CazadorAcciones
             {
                 //Si la Quaffle fue tomada por otro jugador
                 //Podemos chacar si la tiene un compañero
-                if (cazador.miEquipo.esCompa(GameManager.instancia.Quaffle.
-                    GetComponent<Quaffle>().CurrentBallOwner()))
+                GameObject companiero = quaffle.GetComponent<Quaffle>().CurrentBallOwner();
+                if (cazador.miEquipo.isCompa(companiero) && companiero.GetComponent<PecesPlayer>().playerPosition == PecesPlayer.PlayerPosition.Chaser)
                 {
                     //Acompañar al jugador
                     ChangeState(CazadorStateID.Acompaniar);
-
                 }
+                else ChangeState(CazadorStateID.PerseguirPelota);
                 if (cazador.miEquipo.isRival(GameManager.instancia.Quaffle.
                     GetComponent<Quaffle>().CurrentBallOwner()))//Pero si la tiene un rival
                 {
@@ -145,7 +110,7 @@ namespace CazadorAcciones
         }
         public override void OnExit(GameObject obj)
         {
-            Debug.Log("exit perseguirPelota");
+            //Debug.Log("exit perseguirPelota");
         }
     }
     public class BuscarAro : State
@@ -162,7 +127,7 @@ namespace CazadorAcciones
         }
         public override void OnEnter(GameObject obj)
         {
-            Debug.Log("LLendo al aro");
+            //Debug.Log("LLendo al aro");
             List<Transform> objetivos = cazador.GetComponentInParent<CabrasTeam>().arosEnemigos;
             float distanciaMenor = 0f;
 
@@ -211,7 +176,7 @@ namespace CazadorAcciones
         }
         public override void OnExit(GameObject obj)
         {
-            Debug.Log("exit buscar aro");
+            //Debug.Log("exit buscar aro");
         }
     }
     public class Acompaniar : State
@@ -219,6 +184,7 @@ namespace CazadorAcciones
         PecesPlayer player;
         elCazadorCabras cazador;
         Transform direccion;
+        Transform quaffle;
 
         public Acompaniar(elCazadorCabras cazador)
         {
@@ -228,7 +194,8 @@ namespace CazadorAcciones
         public override void OnEnter(GameObject obj)
         {
             cazador.estadoActual = "Acompañar";
-            Debug.Log("Acompañando");
+            quaffle = GameManager.instancia.Quaffle.transform;
+            //Debug.Log("Acompañando");
             if (cazador.numeroParaSeguir == 1)
             {
                 direccion = cazador.GetComponentInParent<LosCazadoresCabras>().
@@ -242,10 +209,24 @@ namespace CazadorAcciones
         }
         public override void Act(GameObject obj)
         {
+            GameObject esPortero = quaffle.GetComponent<Quaffle>().CurrentBallOwner();
+            if (esPortero != null)
+            if (esPortero.GetComponent<PecesPlayer>().playerPosition == PecesPlayer.PlayerPosition.Keeper)
+            {
+                Debug.Log("Presta Portero");
+                player.steering.Arrive(esPortero.transform.position, CabrasSteeringBlender.decelerationVel.slow, 0.2f);
+            }
+            else
             player.steering.Arrive(direccion.position, CabrasSteeringBlender.decelerationVel.fast, 1);
         }
         public override void Reason(GameObject obj)
         {
+            GameObject esPortero = quaffle.GetComponent<Quaffle>().CurrentBallOwner();
+            if (esPortero != null)
+                if (esPortero.GetComponent<PecesPlayer>().playerPosition == PecesPlayer.PlayerPosition.Keeper)
+            {
+                ChangeState(CazadorStateID.PerseguirPelota);
+            }
             //Estoy tras la pelota, hay que ver si la tiene otro jugador
             if (!GameManager.instancia.isQuaffleControlled())
             {
@@ -261,7 +242,7 @@ namespace CazadorAcciones
         }
         public override void OnExit(GameObject obj)
         {
-            Debug.Log("exit acompañar");
+            //Debug.Log("exit acompañar");
         }
     }
     public class PerseguirRival : State
@@ -280,7 +261,7 @@ namespace CazadorAcciones
             cazador.estadoActual = "perseguir rival";
             rival = player.quaffle.GetComponent<Quaffle>()
                 .CurrentBallOwner().transform;
-            Debug.Log("Persiguiendo al rival");
+           //Debug.Log("Persiguiendo al rival");
         }
 
         public override void Act(GameObject obj)
@@ -302,7 +283,7 @@ namespace CazadorAcciones
         }
         public override void OnExit(GameObject obj)
         {
-            Debug.Log("exit perseguir rival");
+            //Debug.Log("exit perseguir rival");
         }
     }
 }
