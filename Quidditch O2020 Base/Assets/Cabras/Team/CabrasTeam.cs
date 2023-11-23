@@ -30,7 +30,7 @@ public class CabrasTeam : MonoBehaviour
     {
         cabrasTeamNumber =
             GameManager.instancia.SetTeamName(cabrasName);
-        cabras = new List<Transform>();
+        //cabras = new List<Transform>();
 
         if (cabrasTeamNumber == 1)
         {
@@ -73,7 +73,7 @@ public class CabrasTeam : MonoBehaviour
             estadoEquipo = TeamState.BolaLibre;
             return;
         }
-        if (isCabra(quaffleBall.GetComponent<Ball>().CurrentBallOwner()))
+        if (esCompa(quaffleBall.GetComponent<Ball>().CurrentBallOwner()))
         {
             estadoEquipo = TeamState.Atacando;
         }
@@ -85,7 +85,7 @@ public class CabrasTeam : MonoBehaviour
 
     }
 
-    public bool isCabra(GameObject player)
+    public bool esCompa(GameObject player)
     {
         return cabras.Contains(player.transform);
     }
@@ -99,6 +99,7 @@ public class CabrasTeam : MonoBehaviour
     {
         if (getTeamNumber == 1)
         {
+            print("equipo num 1");
             // Mis rivales
             rivales = GameManager.instancia.team2Players;
             // Mis posiciones iniciales
@@ -107,6 +108,7 @@ public class CabrasTeam : MonoBehaviour
         }
         else
         {
+            print("equipo num 2");
             rivales = GameManager.instancia.team1Players;
             posicionesIniciales = GameManager.instancia.Team2StartPositions;
             posicionSeeker = GameManager.instancia.Team2SeekerStartPosition;
@@ -114,11 +116,13 @@ public class CabrasTeam : MonoBehaviour
 
         for (int j = 0; j < 6; j++)
         {
-            cabras[j].GetComponent<Player>().myNumberInTeam = j;
-            cabras[j].GetComponent<Player>().myStartingPosition = posicionesIniciales[j];
+            cabras[j].GetComponent<PecesPlayer>().numeroEnElEquipo = j;
+            cabras[j].GetComponent<PecesPlayer>().posicionInicial = posicionesIniciales[j];
+            //print("jugador " + j);
         }
-        cabras[6].GetComponent<Player>().myNumberInTeam = 6;
-        cabras[6].GetComponent<Player>().myStartingPosition = posicionSeeker;
+        cabras[6].GetComponent<PecesPlayer>().numeroEnElEquipo = 6;
+        cabras[6].GetComponent<PecesPlayer>().posicionInicial = posicionSeeker;
+            //print("jugador 6");
 
     }
     public void FindClosestTeammateToQuaffle()

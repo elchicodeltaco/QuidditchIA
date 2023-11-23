@@ -29,10 +29,10 @@ namespace MyKeeperStates
         }
         public override void Act(GameObject objeto)
         {
-            if (player.myStartingPosition != null)
+            if (player.posicionInicial != null)
             {
                 // El jugador se pone en posición de inicio de juego
-                player.steeringCabras.Arrive(player.myStartingPosition.position ,CabrasSteeringBlender.decelerationVel.fast, 1);
+                player.steeringCabras.Arrive(player.posicionInicial.position, CabrasSteeringBlender.decelerationVel.fast, 1);
             }
         }
         public override void Reason(GameObject objeto)
@@ -54,7 +54,7 @@ namespace MyKeeperStates
     }
     public class GoToPosition : State
     {
-        private Player player;
+        private PecesPlayer player;
         private CabrasKeeper keeper;
 
         // Variables del estado
@@ -73,7 +73,7 @@ namespace MyKeeperStates
             if (keeper.keeperPosition != null)
             {
                 // El jugador se pone en posición de inicio de juego
-                keeper.steeringCabras.Arrive(player.myStartingPosition.position, 
+                keeper.steeringCabras.Arrive(player.posicionInicial.position, 
                     CabrasSteeringBlender.decelerationVel.fast, 1);
             }
         }
@@ -96,7 +96,7 @@ namespace MyKeeperStates
     }
     public class Anticipate : State
     {
-        private Player player;
+        private PecesPlayer player;
         private CabrasKeeper keeper;
 
         private GameObject aro = new GameObject();
@@ -115,16 +115,16 @@ namespace MyKeeperStates
         }
         public override void Act(GameObject objeto)
         {
-            if (keeper.quaffleBall.GetComponent<Ball>().CurrentBallOwner() != null)
+            if (keeper.quaffle.GetComponent<Ball>().CurrentBallOwner() != null)
             {
                 //preguntar si es rival
-                keeper.steeringCabras.Interpose(keeper.quaffleBall.GetComponent<Ball>().
+                keeper.steeringCabras.Interpose(keeper.quaffle.GetComponent<Ball>().
                 CurrentBallOwner().transform, keeper.NearestRingToQuaffle(), 0.1f);
                 keeper.steeringCabras.maxSpeed = 15;
             }
             else
             {
-                keeper.steeringCabras.Interpose(keeper.quaffleBall, keeper.NearestRingToQuaffle(), 0.1f);
+                keeper.steeringCabras.Interpose(keeper.quaffle, keeper.NearestRingToQuaffle(), 0.1f);
                 keeper.steeringCabras.maxSpeed = 15;
             }
             
@@ -152,7 +152,7 @@ namespace MyKeeperStates
     }
     public class PersuitTarget : State
     {
-        private Player player;
+        private PecesPlayer player;
         private CabrasKeeper keeper;
 
         // Variables del estado
@@ -168,10 +168,10 @@ namespace MyKeeperStates
         }
         public override void Act(GameObject objeto)
         {
-            if(keeper.quaffleBall.GetComponent<Ball>().CurrentBallOwner() != null) 
+            if(keeper.quaffle.GetComponent<Ball>().CurrentBallOwner() != null) 
             {
                 //preguntar si es rival
-                keeper.steeringCabras.Persuit(keeper.quaffleBall.GetComponent<Ball>().CurrentBallOwner().transform, 1);
+                keeper.steeringCabras.Persuit(keeper.quaffle.GetComponent<Ball>().CurrentBallOwner().transform, 1);
             }
             else
             {
@@ -198,7 +198,7 @@ namespace MyKeeperStates
     }
     public class SeekTarget : State
     {
-        private Player player;
+        private PecesPlayer player;
         private CabrasKeeper keeper;
 
         // Variables del estado
@@ -214,19 +214,19 @@ namespace MyKeeperStates
         }
         public override void Act(GameObject objeto)
         {
-            if(keeper.quaffleBall.GetComponent<Ball>().CurrentBallOwner() != null) 
+            if(keeper.quaffle.GetComponent<Ball>().CurrentBallOwner() != null) 
             {
                 //preguntar si es rival
                // keeper.steeringCabras.Seek(keeper.quaffleBall.GetComponent<Ball>()
                     //.CurrentBallOwner().transform.position, 1);
                 keeper.steeringCabras.maxSpeed = 30;
 
-                keeper.steeringCabras.Persuit(keeper.quaffleBall.GetComponent<Ball>().
+                keeper.steeringCabras.Persuit(keeper.quaffle.GetComponent<Ball>().
                     CurrentBallOwner().transform, 1);
             }
             else
             {
-                keeper.steeringCabras.Seek(keeper.quaffleBall.position, 1);
+                keeper.steeringCabras.Seek(keeper.quaffle.position, 1);
             }
             //player.steering.seek = true;
         }

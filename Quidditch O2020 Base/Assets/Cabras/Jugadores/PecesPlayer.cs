@@ -1,22 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PlayerStates;
+using PecesPlayerEstados;
 
 [RequireComponent(typeof(CabrasSteeringBlender))]
-
-public class CabrasPlayer : MonoBehaviour
+public class PecesPlayer : MonoBehaviour
 {
-    public CabrasSteeringBlender steering;
-    FSM fsm;
-    public float resistance = 50;
-    public Transform myStartingPos = null;
 
+    [HideInInspector] public CabrasSteeringBlender steering;
+    public bool hitted = false;
+    public Transform quaffle;
+    // team stuff
+    [HideInInspector] public CabrasTeam miEquipo;
+    public Transform posicionInicial = null;
+    [HideInInspector] public int numeroEnElEquipo;
+    //fsm
+    public FSM fsm;
+
+    [Header("Padre")]
     public PlayerPosition playerPosition;
     public enum PlayerPosition
     {
         Keeper, Beater, Chaser, Seeker
     }
+    public float resistencia = 50;
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -24,18 +32,22 @@ public class CabrasPlayer : MonoBehaviour
         steering = GetComponent<CabrasSteeringBlender>();
         fsm = new FSM(gameObject, this);
 
-        // Crear los estados en que puede estar 
+        //team stuff
+        miEquipo = GetComponentInParent<CabrasTeam>();
+
+        quaffle = GameManager.instancia.Quaffle.transform;
+        //// Crear los estados en que puede estar 
         //GlobalMessageState global = new GlobalMessageState(this);
         //Waiting wait = new Waiting(this);
         //ReceiveHit hit = new ReceiveHit(this);
 
-        // Estado global
+        //// Estado global
         //fsm.SetGlobalState(global);
-        // Hay que agregarlos a la FSM
+        ////Hay que agregarlos a la FSM
         //fsm.AddState(StateID.Waiting, wait);
         //fsm.AddState(StateID.ReceiveHit, hit);
 
-        // Indicar cual es el estado inicial
+        //// Indicar cual es el estado inicial
         //fsm.ChangeState(StateID.Waiting);
 
         // Activo la fsm
@@ -48,6 +60,7 @@ public class CabrasPlayer : MonoBehaviour
         if (fsm != null && fsm.IsActive())
         {
             fsm.UpdateFSM();
+            //print("andando"+ gameObject.ToString());
         }
     }
 }

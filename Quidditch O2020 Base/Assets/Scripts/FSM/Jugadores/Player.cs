@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 {
     public FSM fsm;
     public SteeringCombined steering;
-
+    public State sigEstado;
 
 
     // Variables del jugador

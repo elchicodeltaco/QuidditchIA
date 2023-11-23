@@ -4,13 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyKeeperStates;
 
-public class CabrasKeeper : Player
+public class CabrasKeeper : PecesPlayer
 {
     [Header("Positions")]
     public Transform keeperPosition;
     public Transform overlapPosition;
-    public GameObject ringToPorotect;
-    public Transform quaffleBall;
+    public GameObject ringToPorotect;    
     [Header("Fuzzy")]
     public float magnitudePercent;
     public float HowFarBall;
@@ -37,7 +36,7 @@ public class CabrasKeeper : Player
     void Start()
     {
         base.Start();
-        quaffleBall = GameObject.FindGameObjectWithTag("Ball Quaffle").transform;
+        
         SetTeamRings();
         // Agregar los estados de este agente, chaser
         PrepareToPlay prepare = new PrepareToPlay(this);
@@ -53,6 +52,7 @@ public class CabrasKeeper : Player
         fsm.AddState(KeeperStateID.Seek, seekTarget);
 
         fsm.ChangeState(KeeperStateID.PrepareToPlay);
+        fsm.Activate();
 
         Vector3 maxPosition = new Vector3(overlapPosition.position.x + overlapRadius, overlapPosition.position.y, overlapPosition.position.z);
         Vector3 distance = maxPosition - ringToPorotect.transform.position;
@@ -105,7 +105,7 @@ public class CabrasKeeper : Player
         //agarar la quaffle y compararla con el aro mas cercano
         foreach(RingToProtect aro in rings)
         {
-            Vector3 direccion = aro.transform.position - quaffleBall.position;
+            Vector3 direccion = aro.transform.position - quaffle.position;
 
             if(direccion.magnitude < magnitud)
             {
@@ -114,7 +114,7 @@ public class CabrasKeeper : Player
             }
         }
         if(HowFarBall < 100f)
-            Debug.DrawLine(quaffleBall.GetComponent<Ball>().transform.position, aroCercano.transform.position, Color.magenta);
+            Debug.DrawLine(quaffle.GetComponent<Ball>().transform.position, aroCercano.transform.position, Color.magenta);
         return aroCercano.transform;
         
     }
@@ -135,7 +135,7 @@ public class CabrasKeeper : Player
 
     public void HowCloseIsTheBall()
     {
-        Vector3 distancia = quaffleBall.transform.position - NearestRingToQuaffle().position;
+        Vector3 distancia = quaffle.transform.position - NearestRingToQuaffle().position;
         float retornar = (distancia.magnitude * 100) / magnitudePercent;
         HowFarBall = retornar;
     }

@@ -12,7 +12,6 @@ namespace CabrasTeamState
         BolaLibre
     }
    
-
     public class Preparar : State
     {
         private CabrasTeam team;
